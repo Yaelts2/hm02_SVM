@@ -1,4 +1,6 @@
 from datasets import (generate_linear_dataset, generate_Circular_dataset, plot_dataset)
+import matplotlib.pyplot as plt
+import numpy as np
 from sklearn.metrics import accuracy_score
 from models import (split_train_test,
                     train_perceptron, 
@@ -18,6 +20,7 @@ def main():
     RUN_Q1_Q2 = True
     RUN_Q3 = True
     RUN_Q4 = True
+    RUN_Q5 = True
     
     if RUN_Q1_Q2:
         ###  creating linear dataset
@@ -74,7 +77,8 @@ def main():
         )
 
 
-            #non-linear data
+        ### non-linear data
+        
         #Split Train/Test 
         X_train_nl, X_test_nl, y_train_nl, y_test_nl = split_train_test(X_nonlin, y_nonlin)
 
@@ -190,4 +194,121 @@ def main():
         plot_decision_boundary(poly_svm_model,X_lin, y_lin,title="Poly SVM Decision Boundary (Linear Dataset)")
         plot_decision_boundary(poly_svm_model_nl, X_nonlin, y_nonlin,title="Poly SVM Decision Boundary (Non-linear Dataset)")
 
+    
+    if RUN_Q5:
+        # Question 5 a
+        k = 150  # number of repetitions
+        low_sd = 0.1
+        high_sd = 0.4
+
+        f1_low_list = []
+        f1_high_list = []
+
+        for i in range(k):
+            # sample 1000 points
+            idx = np.random.choice(len(X_nonlin), size=1000, replace=False)
+            X_base = X_nonlin[idx]
+            y_base = y_nonlin[idx]
+
+            # low noise
+            noise_low = np.random.normal(0, low_sd, X_base.shape)
+            X_low = X_base + noise_low
+            _, f1_low = compute_confusion_and_f1(kernel_svm_model_nl, X_low, y_base)
+            f1_low_list.append(f1_low)
+
+            # high noise
+            noise_high = np.random.normal(0, high_sd, X_base.shape)
+            X_high = X_base + noise_high
+            _, f1_high = compute_confusion_and_f1(kernel_svm_model_nl, X_high, y_base)
+            f1_high_list.append(f1_high)
+
+        # aggregate
+        f1_low_mean = np.mean(f1_low_list)
+        f1_high_mean = np.mean(f1_high_list)
+
+        print(f"\nLow noise (SD={low_sd}):  mean F1 = {f1_low_mean:.4f}")
+        print(f"High noise (SD={high_sd}): mean F1 = {f1_high_mean:.4f}")
+
+        # plot
+        plot_accuracy_bars(accuracies=[f1_low_mean, f1_high_mean],
+                        labels=["Low noise", "High noise"],
+                        title="RBF SVM – robustness to input noise",
+                        ylabel="Mean F1-score",
+                        )
+
+        # sample one batch for visualization 
+        idx = np.random.choice(len(X_nonlin), size=1000, replace=False)
+        X_base = X_nonlin[idx]
+        y_base = y_nonlin[idx]
+
+        # create low-noise and high-noise versions for visualization
+        X_low_vis = X_base + np.random.normal(0, low_sd, X_base.shape)
+        X_high_vis = X_base + np.random.normal(0, high_sd, X_base.shape)
+
+        # plot decision boundary for low noise
+        plot_decision_boundary(kernel_svm_model_nl,
+                            X_low_vis,
+                            y_base,
+                            title="RBF SVM Decision Boundary (Low noise)",
+                            )
+
+        # plot decision boundary for high noise
+        plot_decision_boundary(kernel_svm_model_nl,
+                            X_high_vis,
+                            y_base,
+                            title="RBF SVM Decision Boundary (High noise)",
+                            )
+                
+        # Histograms of F1 distributions 
+        plt.figure(figsize=(10, 4))
+        plt.subplot(1, 2, 1)
+        plt.hist(f1_low_list, bins=15, color="red", alpha=0.7)
+        plt.title("F1 distribution – Low noise")
+        plt.xlabel("F1-score")
+        plt.ylabel("Count")
+        plt.subplot(1, 2, 2)
+        plt.hist(f1_high_list, bins=15, color="blue", alpha=0.7)
+        plt.title("F1 distribution – High noise")
+        plt.xlabel("F1-score")
+        plt.ylabel("Count")
+        plt.tight_layout()
+        plt.show()
+
+
+        #question 5 b
+        label_noise_levels = [0.0, 0.15, 0.30, 0.50]
+        k_label = 50 
+        f1_means_label = []
+
+        for noise_level in label_noise_levels:
+            f1_list = []
+            for i in range(k_label):
+                y_train_noisy = y_train_nl.copy()
+                n_corrupt = int(noise_level * len(y_train_noisy))
+
+                if n_corrupt > 0:
+                    idx_corrupt = np.random.choice(len(y_train_noisy), size=n_corrupt, replace=False)
+
+                    # flip binary labels 0 <-> 1
+                    y_train_noisy[idx_corrupt] = 1 - y_train_noisy[idx_corrupt]
+
+                # train RBF SVM on the corrupted labels
+                svm_noisy = train_kernel_svm(X_train_nl, y_train_noisy)
+                _, f1 = compute_confusion_and_f1(svm_noisy, X_test_nl, y_test_nl)
+                f1_list.append(f1)
+
+            mean_f1 = np.mean(f1_list)
+            f1_means_label.append(mean_f1)
+            print(f"Label noise {int(noise_level*100)}%: mean F1 = {mean_f1:.4f}")
+
+        # Plot performance vs. percentage of shuffled labels
+        percentages = [int(p*100) for p in label_noise_levels]
+
+        plot_accuracy_bars(
+            accuracies=f1_means_label,
+            labels=[f"{p}%" for p in percentages],
+            title="RBF SVM – performance vs. label noise (Circular dataset)",
+            ylabel="Mean F1-score"
+        )
+            
 main()

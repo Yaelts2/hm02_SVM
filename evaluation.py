@@ -27,7 +27,7 @@ def plot_accuracy_bars(accuracies, labels, title="Model Accuracy Comparison"):
     #bar charts showing all models accuracy
     plt.figure(figsize=(6, 4))
     x = np.arange(len(labels))  
-    bars = plt.bar(x, accuracies, color=["red", "blue", "green"])
+    bars = plt.bar(x, accuracies, color=["red", "blue", "green", "purple"])
     for bar, acc in zip(bars, accuracies):
         plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height(),
                 f"{acc:.3f}",
@@ -83,7 +83,7 @@ def plot_accuracy_bars(accuracies, labels, title="Model Comparison", ylabel="Acc
                 f"{val:.3f}",
                 ha="center",
                 va="bottom",
-                ontsize=12,
+                fontsize=12,
                 )
     plt.xticks(x, labels, fontsize=12)
     plt.ylabel(ylabel, fontsize=12)
