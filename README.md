@@ -17,8 +17,7 @@ hm02_SVM/
 │
 ├── requirements.txt     # Minimal dependencies needed to run the project
 └── README.md            # Project description
-
----
+```
 
 ## Implemented Models
 
@@ -67,4 +66,4 @@ Install with:
 
 ```bash
 pip install -r requirements.txt
-
+---
