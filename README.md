@@ -5,8 +5,9 @@ The project includes data generation, model training, visualization, and perform
 
 ---
 
-## 📌 Project Structure
+## Project Structure
 
+```bash
 hm02_SVM/
 │
 ├── main.py              # Main script: runs Questions 1–5 with training + visualizations
@@ -19,7 +20,7 @@ hm02_SVM/
 
 ---
 
-## 📌 Implemented Models
+## Implemented Models
 
 - **Perceptron classifier**
 - **Linear SVM**
@@ -32,7 +33,7 @@ Each classifier is trained and evaluated on:
 
 ---
 
-## 📌 Visualizations Included
+## Visualizations Included
 
 The project generates:
 
@@ -46,7 +47,7 @@ These plots help illustrate why certain kernels perform better on specific data 
 
 ---
 
-## 📌 Key Results Summary
+## Key Results Summary
 
 - On the **linear dataset**, all SVM kernels perform almost perfectly.  
 - On the **non-linear dataset**, the **RBF kernel significantly outperforms** the Polynomial kernel due to its ability to create flexible, local decision boundaries.  
@@ -54,7 +55,7 @@ These plots help illustrate why certain kernels perform better on specific data 
 
 ---
 
-## 📌 Requirements
+## Requirements
 
 Minimal packages required to run the project:
 
