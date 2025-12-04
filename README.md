@@ -10,13 +10,15 @@ The project includes data generation, model training, visualization, and perform
 ```bash
 hm02_SVM/
 │
-├── main.py              # Main script: runs Questions 1–5 with training + visualizations
+├── main.py              # Main script executing Questions 1–5 with training and visualizations
 ├── datasets.py          # Functions for generating linear and non-linear datasets
-├── models.py            # Implementations of Perceptron, Linear SVM, RBF SVM, Poly SVM
-├── evaluation.py        # Plotting utilities + confusion matrix + F1 score evaluation
+├── models.py            # Implementations of Perceptron, Linear SVM, RBF SVM, Polynomial SVM
+├── evaluation.py        # Plotting utilities, confusion matrix, and F1-score evaluation
+├── q5c_highdim.py       # High-dimensional data experiments for Question 5c
 │
-├── requirements.txt     # Minimal dependencies needed to run the project
-└── README.md            # Project description
+├── requirements.txt     # Project dependencies
+└── README.md            # Project documentation
+
 ```
 
 ## Implemented Models
@@ -42,8 +44,7 @@ The project generates:
 - Confusion matrices  
 - F1-score comparison (RBF vs Polynomial)
 
-These plots help illustrate why certain kernels perform better on specific data types.
-
+These visualizations demonstrate why different kernels succeed or fail depending on the data structure.
 ---
 
 ## Key Results Summary
@@ -66,4 +67,27 @@ Install with:
 
 ```bash
 pip install -r requirements.txt
+```
+
+
+## How to Run
+Clone the repository:
+```bash
+git clone https://github.com/Yaelts2/hm02_SVM.git
+cd hm02_SVM
+```
+
+Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+Run the main assignment script (Questions 1–5):
+```bash
+python main.py
+```
+
+Run the high-dimensional experiment for Question 5c:
+```bash
+python q5c_highdim.py
 ```
