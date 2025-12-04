@@ -16,14 +16,14 @@ def plot_decision_boundary(model, X, y, title="Decision Boundary"):
 
     plt.contourf(xx, yy, Z, alpha=0.3, cmap="coolwarm")
     plt.scatter(X[:, 0], X[:, 1], c=y, cmap="coolwarm", edgecolors='k', s=30)
-    plt.title(title, fontsize=16)
-    plt.xlabel("x1 [A.U.]")
-    plt.ylabel("x2 [A.U.]")
+    plt.title(title, fontsize=20)
+    plt.xlabel("x1 [A.U.]", fontsize=18)
+    plt.ylabel("x2 [A.U.]", fontsize=18)
     plt.tight_layout()
     plt.show()
 
 
-def plot_accuracy_bars(accuracies, labels, title="Model Accuracy Comparison"):
+def plot_accuracy_bars(accuracies, labels, title="Model Accuracy Comparison",ylabel='Accuracy'):
     #bar charts showing all models accuracy
     plt.figure(figsize=(6, 4))
     x = np.arange(len(labels))  
@@ -37,10 +37,8 @@ def plot_accuracy_bars(accuracies, labels, title="Model Accuracy Comparison"):
                 )
 
     plt.xticks(x, labels, fontsize=12)
-    plt.ylabel("Accuracy", fontsize=12)
-    plt.title(title, fontsize=14)
-    plt.ylim(0, 1.05)
-
+    plt.ylabel(ylabel, fontsize=18)
+    plt.title(title, fontsize=20)
     plt.tight_layout()
     plt.show()
 
@@ -66,46 +64,26 @@ def plot_decision_boundary(model, X, y, title="Decision Boundary"):
     plt.figure()
     plt.contourf(xx, yy, Z, alpha=0.3, cmap="coolwarm")
     plt.scatter(X[:, 0], X[:, 1], c=y, cmap="coolwarm", edgecolors="k", s=30)
-    plt.title(title, fontsize=16)
-    plt.xlabel("x1 [A.U.]")
-    plt.ylabel("x2 [A.U.]")
+    plt.title(title, fontsize=20)
+    plt.xlabel("x1 [A.U.]", fontsize=18)
+    plt.ylabel("x2 [A.U.]", fontsize=18)
     plt.tight_layout()
     plt.show()
 
-
-def plot_accuracy_bars(accuracies, labels, title="Model Comparison", ylabel="Accuracy"):
-    plt.figure(figsize=(6, 4))
-    x = np.arange(len(labels))  
-    bars = plt.bar(x,accuracies,color=["red", "blue", "green"][:len(labels)])
-    for bar, val in zip(bars, accuracies):
-        plt.text(bar.get_x() + bar.get_width() / 2,
-                bar.get_height(),
-                f"{val:.3f}",
-                ha="center",
-                va="bottom",
-                fontsize=12,
-                )
-    plt.xticks(x, labels, fontsize=12)
-    plt.ylabel(ylabel, fontsize=12)
-    plt.title(title, fontsize=14)
-    plt.ylim(0, 1.05)
-    plt.tight_layout()
-    plt.show()
 
 
 def plot_confusion_matrix(cm, class_names, title="Confusion Matrix"):
     plt.figure(figsize=(4, 4))
     plt.imshow(cm, cmap="Blues")
     plt.colorbar()
-
     ticks = np.arange(len(class_names))
     plt.xticks(ticks, class_names, fontsize=10)
     plt.yticks(ticks, class_names, fontsize=10)
     for i in range(cm.shape[0]):
         for j in range(cm.shape[1]):
-            plt.text(j, i, str(cm[i, j]),ha="center",va="center",fontsize=12)
-    plt.xlabel("Predicted", fontsize=12)
-    plt.ylabel("True", fontsize=12)
-    plt.title(title, fontsize=14)
+            plt.text(j, i, str(cm[i, j]),ha="center",va="center",fontsize=18)
+    plt.xlabel("Predicted", fontsize=18)
+    plt.ylabel("True", fontsize=18)
+    plt.title(title, fontsize=20)
     plt.tight_layout()
     plt.show()

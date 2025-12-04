@@ -17,12 +17,7 @@ from evaluation import (plot_decision_boundary,
 
 
 def main():
-    RUN_Q1_Q2 = True
-    RUN_Q3 = True
-    RUN_Q4 = True
-    RUN_Q5 = True
-    
-    if RUN_Q1_Q2:
+        # Question 1 & 2
         ###  creating linear dataset
         X_lin, y_lin = generate_linear_dataset(n_samples_per_class=2048,random_state=0)
         #check if number of semple is correct after creating the data:
@@ -34,9 +29,10 @@ def main():
         #check if number of semple is correct after creating the data:
         print("Circular dataset shape:", X_nonlin.shape, y_nonlin.shape)
         plot_dataset(X_nonlin, y_nonlin, title="Circular dataset (moons, 2^12 samples)")
+
         
+        # Question 3
         
-    if RUN_Q3 :
         ###Linear data
         #Split Train/Test
         X_train, X_test, y_train, y_test = split_train_test(X_lin, y_lin)
@@ -78,7 +74,6 @@ def main():
 
 
         ### non-linear data
-        
         #Split Train/Test 
         X_train_nl, X_test_nl, y_train_nl, y_test_nl = split_train_test(X_nonlin, y_nonlin)
 
@@ -117,8 +112,11 @@ def main():
             title="Accuracy Comparison – Non-linear Dataset"
         )
 
-    if RUN_Q4:
-        #Question4:
+
+
+    
+        # Question4:
+        
         #train the linear and non-linear data with the new kernel - Polynomial SVM
         poly_svm_model = train_poly_svm(X_train, y_train)
         y_pred_poly_svm = poly_svm_model.predict(X_test)
@@ -185,7 +183,7 @@ def main():
         plot_confusion_matrix(cm_poly_lin, ["Class 0", "Class 1"],
                             title="Poly SVM – Confusion Matrix (Linear)")
 
-        # === Confusion matrices for non-linear data
+        # Confusion matrices for non-linear data
         plot_confusion_matrix(cm_rbf_nl, ["Class 0", "Class 1"],
                             title="RBF SVM – Confusion Matrix (Non-linear)")
         plot_confusion_matrix(cm_poly_nl, ["Class 0", "Class 1"],
@@ -195,9 +193,10 @@ def main():
         plot_decision_boundary(poly_svm_model_nl, X_nonlin, y_nonlin,title="Poly SVM Decision Boundary (Non-linear Dataset)")
 
     
-    if RUN_Q5:
+
         # Question 5 a
-        k = 150  # number of repetitions
+        
+        k = 150  
         low_sd = 0.1
         high_sd = 0.4
 
@@ -222,7 +221,6 @@ def main():
             _, f1_high = compute_confusion_and_f1(kernel_svm_model_nl, X_high, y_base)
             f1_high_list.append(f1_high)
 
-        # aggregate
         f1_low_mean = np.mean(f1_low_list)
         f1_high_mean = np.mean(f1_high_list)
 
@@ -288,10 +286,8 @@ def main():
 
                 if n_corrupt > 0:
                     idx_corrupt = np.random.choice(len(y_train_noisy), size=n_corrupt, replace=False)
-
                     # flip binary labels 0 <-> 1
                     y_train_noisy[idx_corrupt] = 1 - y_train_noisy[idx_corrupt]
-
                 # train RBF SVM on the corrupted labels
                 svm_noisy = train_kernel_svm(X_train_nl, y_train_noisy)
                 _, f1 = compute_confusion_and_f1(svm_noisy, X_test_nl, y_test_nl)

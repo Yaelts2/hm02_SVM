@@ -45,6 +45,8 @@ def train_kernel_svm(X_train, y_train, C=1.0, gamma="scale", random_state=0):
     model.fit(X_train, y_train)
     return model
 
+
+
 def train_poly_svm(X_train, y_train, C=1.0, degree=3, gamma="scale", coef0=0.0, random_state=0):
     #this function trains a Polynomial SVM
     model = SVC(kernel="poly", C=C, degree=degree, gamma=gamma, coef0=coef0, random_state=random_state)
