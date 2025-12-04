@@ -1,4 +1,4 @@
-from datasets import (generate_linear_dataset, generate_Circular_dataset, plot_dataset)
+from datasets import (generate_linear_dataset, generate_circular_dataset, plot_dataset)
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.metrics import accuracy_score
@@ -25,7 +25,7 @@ def main():
         plot_dataset(X_lin, y_lin, title="Linear dataset (2^12 samples)")
         
         ###  creating circular(non-linear) dataset
-        X_nonlin, y_nonlin = generate_Circular_dataset(n_samples=4096, noise=0.2,random_state=0)
+        X_nonlin, y_nonlin = generate_circular_dataset(n_samples=4096, noise=0.2, factor=0.5,random_state=0)
         #check if number of semple is correct after creating the data:
         print("Circular dataset shape:", X_nonlin.shape, y_nonlin.shape)
         plot_dataset(X_nonlin, y_nonlin, title="Circular dataset (moons, 2^12 samples)")

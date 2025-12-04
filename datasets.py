@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.datasets import make_blobs, make_moons
+from sklearn.datasets import make_blobs, make_moons,make_circles
 import matplotlib.pyplot as plt
 
 
@@ -13,12 +13,14 @@ def generate_linear_dataset(n_samples_per_class=2048, random_state=0):
     return X, y
 
 
-def generate_Circular_dataset(n_samples=4096, noise=0.2, random_state=0):
-    X, y = make_moons(n_samples=n_samples,
-                    noise=noise,
-                    random_state=random_state
-                    )
+
+def generate_circular_dataset(n_samples=4000, noise=0.2, factor=0.5, random_state=0):
+    X, y = make_circles(n_samples=n_samples,
+                        noise=noise,
+                        factor=factor,      # inner circle size
+                        random_state=random_state)
     return X, y
+
 
 
 def plot_dataset(X, y, title="Dataset"):

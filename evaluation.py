@@ -3,26 +3,6 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, f1_score
 
 
-def plot_decision_boundary(model, X, y, title="Decision Boundary"):
-    #This function draws a map showing where the model thinks the boundary is between the two classes .
-    #first creating a coordinate grid 
-    x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
-    y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
-    xx, yy = np.meshgrid(np.linspace(x_min, x_max, 300), np.linspace(y_min, y_max, 300))
-    grid_points = np.c_[xx.ravel(), yy.ravel()]
-    #predict for every point in the grid to see the boundary of the model 
-    Z = model.predict(grid_points)
-    Z = Z.reshape(xx.shape)
-
-    plt.contourf(xx, yy, Z, alpha=0.3, cmap="coolwarm")
-    plt.scatter(X[:, 0], X[:, 1], c=y, cmap="coolwarm", edgecolors='k', s=30)
-    plt.title(title, fontsize=20)
-    plt.xlabel("x1 [A.U.]", fontsize=18)
-    plt.ylabel("x2 [A.U.]", fontsize=18)
-    plt.tight_layout()
-    plt.show()
-
-
 def plot_accuracy_bars(accuracies, labels, title="Model Accuracy Comparison",ylabel='Accuracy'):
     #bar charts showing all models accuracy
     plt.figure(figsize=(6, 4))
@@ -63,6 +43,7 @@ def plot_decision_boundary(model, X, y, title="Decision Boundary"):
     Z = Z.reshape(xx.shape)
     plt.figure()
     plt.contourf(xx, yy, Z, alpha=0.3, cmap="coolwarm")
+    plt.contour(xx, yy, Z, levels=[0.5], colors="k", linewidths=2)
     plt.scatter(X[:, 0], X[:, 1], c=y, cmap="coolwarm", edgecolors="k", s=30)
     plt.title(title, fontsize=20)
     plt.xlabel("x1 [A.U.]", fontsize=18)

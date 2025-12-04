@@ -1,12 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_moons
-from datasets import plot_dataset,visualize_3d_data
+from datasets import visualize_3d_data
 from models import split_train_test,train_kernel_svm
-from evaluation import (plot_decision_boundary,
-                        plot_accuracy_bars,
+from evaluation import (plot_accuracy_bars,
                         compute_confusion_and_f1,
-                        plot_confusion_matrix,
                         )
 
 ## First method
