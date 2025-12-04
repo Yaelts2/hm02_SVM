@@ -93,7 +93,7 @@ def main():
         acc_kernel_svm_nl = accuracy_score(y_test_nl, y_pred_kernel_svm_nl)
 
         #Print results for the non-linear dataset
-        print("\nClassification accuracy on the NON-LINEAR dataset (moons):")
+        print("\nClassification accuracy on the NON-LINEAR dataset :")
         print(f"  Perceptron accuracy:       {acc_perc_nl:.4f}")
         print(f"  Linear SVM accuracy:       {acc_lin_svm_nl:.4f}")
         print(f"  Kernel SVM (RBF) accuracy: {acc_kernel_svm_nl:.4f}")
@@ -132,7 +132,7 @@ def main():
         print(f"  Linear SVM accuracy:         {acc_lin_svm:.4f}")
         print(f"  Kernel SVM (RBF) accuracy:   {acc_kernel_svm:.4f}")
         print(f"  Poly SVM accuracy:           {acc_poly_svm:.4f}")
-        print("\nClassification accuracy on the NON-LINEAR dataset (moons):")
+        print("\nClassification accuracy on the NON-LINEAR dataset :")
         print(f"  Perceptron accuracy:         {acc_perc_nl:.4f}")
         print(f"  Linear SVM accuracy:         {acc_lin_svm_nl:.4f}")
         print(f"  Kernel SVM (RBF) accuracy:   {acc_kernel_svm_nl:.4f}")

@@ -14,7 +14,7 @@ def generate_linear_dataset(n_samples_per_class=2048, random_state=0):
 
 
 
-def generate_circular_dataset(n_samples=4000, noise=0.2, factor=0.5, random_state=0):
+def generate_circular_dataset(n_samples=4096, noise=0.2, factor=0.5, random_state=0):
     X, y = make_circles(n_samples=n_samples,
                         noise=noise,
                         factor=factor,      # inner circle size
